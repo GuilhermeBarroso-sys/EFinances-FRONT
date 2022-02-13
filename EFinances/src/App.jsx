@@ -1,12 +1,12 @@
-import './global/style.scss'
-import MenuAppBar from './components/MenuAppBar'
+import "./global/style.scss";
+
 function App() {
 
-  return (
-    <MenuAppBar />
-  )
+	return (
+	
+	);
 
     
 }
 
-export default App
+export default App;
