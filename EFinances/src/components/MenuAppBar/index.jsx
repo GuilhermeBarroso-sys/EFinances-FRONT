@@ -35,7 +35,7 @@ export default function MenuAppBar() {
 	};
 
 	return (
-		<AppBar position="static">
+		<AppBar position="static" style = {{backgroundColor: '#33cc95'}}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
@@ -44,7 +44,7 @@ export default function MenuAppBar() {
 						component="div"
 						sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
 					>
-            LOGO
+            G Finances
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

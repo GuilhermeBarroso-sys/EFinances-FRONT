@@ -1,15 +1,20 @@
 .box {
   background: #fff;
-  padding: 2rem 5rem;
+  padding: 2rem 1.5rem;
   border-radius: 0.25rem;
   header {
     display:flex;
     align-items:center;
     justify-content: space-between;
+    p{
+      color: var(--text-body);
+      font-weight:bolder;
+    }
   }
   strong {
     margin-top: 1rem;
     font-size:1.5rem;
+    color: var(--text-title);
     font-weight: 500;
     line-height: 3rem;
   }
