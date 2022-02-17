@@ -1,5 +1,8 @@
-.money {
-   p {
-     color:white;
-   }
+.addButton {
+  margin-left:0.5rem;
+  color: var(--green);
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0.9)
+  }
 }
