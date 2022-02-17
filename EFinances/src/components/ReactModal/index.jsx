@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 export default function ReactModal({modalIsOpen, setModalIsOpen, children, customStyles = {content: {
 	width: '70%',
-	height: '70%',
+	height: '80%',
 	top: '50%',
 	left: '50%',
 	right: 'auto',
