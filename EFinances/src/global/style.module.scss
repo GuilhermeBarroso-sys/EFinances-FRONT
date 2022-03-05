@@ -34,3 +34,12 @@ button{
 }
 
 
+.screenCenter {
+  width:100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align:center;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}

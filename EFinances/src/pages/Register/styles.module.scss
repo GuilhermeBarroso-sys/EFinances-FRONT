@@ -1,0 +1,26 @@
+.title {
+
+    margin-bottom:1rem ;
+    color: #3f3535;
+    font-size:3rem;
+  
+}
+.container{
+  background-color: #ffffff94;
+  padding:2% 0;
+  border-radius: 25px;
+  max-width:724px;
+  margin: 0 auto;
+  .box {
+    width:90%;
+    display:flex;
+    flex-direction:column;
+    margin:0 auto;
+    align-items: center;
+    div {
+      width:100%;
+      margin:0.225rem 0;
+    }
+  
+  }
+}
