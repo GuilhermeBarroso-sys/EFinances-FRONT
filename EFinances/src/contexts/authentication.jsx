@@ -8,6 +8,7 @@ export function AuthProvider(props) {
 		try {
 			const {data} = await handlerApi.post('users/authenticate', { email, password });
 			const {user,token} = data;
+			console.log(user,token);
 			localStorage.setItem('@dolphin:token', token);
 			handlerApi.defaults.headers.common.authorization = `Bearer ${token}`;
 			setUser(user);
@@ -24,11 +25,10 @@ export function AuthProvider(props) {
 
 	async function signUp(name,email,password) {
 		try {
-			await Promise.all([
-				handlerApi.post('users', { name, email, password}),
-				signIn(email, password),
-				handlerApi.post('accounts')
-			]);
+			await handlerApi.post('users', { name, email, password}),
+			await signIn(email, password);
+			await handlerApi.post('accounts');
+			return true;
 		} catch({response}) {
 			Swal.fire({
 				title: 'Erro',

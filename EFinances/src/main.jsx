@@ -4,6 +4,7 @@ import {
 	Routes,
 	Route,
 } from "react-router-dom";
+import 'sweetalert2/src/sweetalert2.scss';
 import ReactDOM from 'react-dom';
 import "./global/style.module.scss";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
