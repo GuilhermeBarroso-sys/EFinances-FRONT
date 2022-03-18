@@ -8,7 +8,6 @@ export function AuthProvider(props) {
 		try {
 			const {data} = await handlerApi.post('users/authenticate', { email, password });
 			const {user,token} = data;
-			console.log(user,token);
 			localStorage.setItem('@dolphin:token', token);
 			handlerApi.defaults.headers.common.authorization = `Bearer ${token}`;
 			setUser(user);
@@ -25,14 +24,16 @@ export function AuthProvider(props) {
 
 	async function signUp(name,email,password) {
 		try {
+	
 			await handlerApi.post('users', { name, email, password}),
 			await signIn(email, password);
 			await handlerApi.post('accounts');
 			return true;
 		} catch({response}) {
+			console.log(response);
 			Swal.fire({
 				title: 'Erro',
-				text: "Por favor, verifique os campos!",
+				text: `${response.data}`,
 				icon: "error",
 			});
 			return false;

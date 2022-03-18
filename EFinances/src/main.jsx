@@ -22,7 +22,7 @@ ReactDOM.render(
 			<AuthProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/" element={<Dashboard/>} />
+						<Route path="/dashboard" index element={<Dashboard/>} />
 						<Route path="/register" element={<Register/>} />
 
 				

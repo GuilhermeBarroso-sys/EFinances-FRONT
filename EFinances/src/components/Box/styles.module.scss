@@ -1,0 +1,21 @@
+$tablet: 768px;
+$phone: 375px;
+.container {
+
+  .flex {
+    display:flex;
+    justify-content: space-around;
+    width:100%;
+    @media screen and (max-width: $tablet) {
+      width:60%;
+      margin:0 auto;
+      flex-direction: column;
+      height: min(500px);
+    }
+    @media screen and (max-width: $phone) {
+      width:100%;
+      height: min(500px);
+    }
+  }
+}
+
