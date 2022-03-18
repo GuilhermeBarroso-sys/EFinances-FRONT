@@ -21,7 +21,7 @@ export default function Dashboard() {
 	return (
 		<>
 			{/** Modal content New Transaction */}
-			{/* {!isAuthenticated() && <Navigate to = '/login' />} */}
+			{!isAuthenticated() && <Navigate to = '/login' />}
 			<ReactModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
 				<NewTransaction />
 			</ReactModal>
@@ -29,7 +29,7 @@ export default function Dashboard() {
 			<MarginTop margin={`3rem`}/>
 
 			{/** Dashboard */}
-			<MuiContainer  maxWidth = 'lg'>
+			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
 				<Box >
 					<InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {'R$ 1500.00'} />
 					<InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {'R$ 1300.00'}/>

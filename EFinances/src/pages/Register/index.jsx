@@ -1,4 +1,4 @@
-import {screenCenter} from '../../global/style.module.scss';
+import {screenCenter} from '../../global/styles.module.scss';
 import TextField from '@mui/material/TextField';
 import styles from './styles.module.scss';
 import { useContext, useEffect, useState } from 'react';

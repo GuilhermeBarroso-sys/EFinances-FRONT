@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 export default function ReactModal({modalIsOpen, setModalIsOpen, children, customStyles = {content: {
-	width: '70%',
+	width: '80%',
 	height: '80%',
 	top: '50%',
 	left: '50%',

@@ -3,10 +3,14 @@
     text-align: center;
     color: var(--text-title)
   }
+  
   form {
+    
     display:flex;
     flex-direction: column;
-
+    input {
+      width: 100%;
+    }
     button {
       width:20%;
       margin:0 auto;

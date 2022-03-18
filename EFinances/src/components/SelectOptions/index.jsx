@@ -12,6 +12,7 @@ export default function SelectOptions({options, selectLabel, helperText, value, 
 			value={value}
 			onChange={helperValue}
 			helperText={helperText}
+			fullWidth
 		>
 			{options.map((option) => (
 				<MenuItem key={option.value} value={option.value}>

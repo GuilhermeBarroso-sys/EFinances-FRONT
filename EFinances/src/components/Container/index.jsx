@@ -1,9 +1,9 @@
 import { Container } from "@mui/material";
 
-export default function MuiContainer({children, maxWidth = 'sm', style = {}, isFixed = false}) {
-	const fixed = isFixed ? 'fixed' : '';
+export default function MuiContainer({children, maxWidth = 'sm', style = {}, isFixed = true}) {
+
 	return (
-		<Container {...fixed} maxWidth = {maxWidth} style = {style}>
+		<Container fixed={isFixed} disableGutters = {true} maxWidth = {maxWidth} style = {style}>
 			{children}
 		</Container>
 	);

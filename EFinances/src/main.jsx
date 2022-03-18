@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import 'sweetalert2/src/sweetalert2.scss';
 import ReactDOM from 'react-dom';
-import "./global/style.module.scss";
+import "./global/styles.module.scss";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import brLocale from 'date-fns/locale/pt-BR';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';

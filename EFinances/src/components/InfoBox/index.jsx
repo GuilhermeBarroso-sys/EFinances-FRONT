@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-export default function InfoBox({title, icon, body, style = {}, titleColor = false, bodyColor = false}) {
+export default function InfoBox({title, icon, body, style = {width: '20%'}, titleColor = false, bodyColor = false}) {
 	return (
 		<div className = {styles.box} style = {style}>
 			<header>

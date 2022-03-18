@@ -1,11 +1,16 @@
+$tablet: 768px;
+$phone: 420px;
+
 .box {
   background: #fff;
   padding: 2rem 1.5rem;
   border-radius: 0.25rem;
+  min-width:20%;
+  max-width: 100%;
   header {
     display:flex;
     align-items:center;
-
+    
     justify-content: space-between;
     p{
       color: var(--text-body);
@@ -22,5 +27,14 @@
   &.highlight-background {
     background: var(--green);
     color: #fff;
+  }
+  @media screen and (max-width: $tablet) {
+    
+    min-width:75%;
+    
+  }
+  @media screen and (max-width: $phone) {
+   min-width:99%;
+  
   }
 }

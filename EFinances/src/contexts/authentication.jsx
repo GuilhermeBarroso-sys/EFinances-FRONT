@@ -1,16 +1,18 @@
 import { createContext, useEffect, useState } from "react";
-import { handlerApi } from "../services/api";
+import { api } from "../services/api";
 import Swal from 'sweetalert2';
 export const AuthContext = createContext({});
 export function AuthProvider(props) {
 	const [user, setUser] = useState(null);
+	console.log(user);
 	async function signIn(email, password ) {
 		try {
-			const {data} = await handlerApi.post('users/authenticate', { email, password });
+			const {data} = await api.post('users/authenticate', { email, password });
 			const {user,token} = data;
 			localStorage.setItem('@dolphin:token', token);
-			handlerApi.defaults.headers.common.authorization = `Bearer ${token}`;
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
 			setUser(user);
+			console.log(user);
 			return true;
 		} catch({response}) {
 			Swal.fire({
@@ -25,12 +27,11 @@ export function AuthProvider(props) {
 	async function signUp(name,email,password) {
 		try {
 	
-			await handlerApi.post('users', { name, email, password}),
+			await api.post('users', { name, email, password}),
 			await signIn(email, password);
-			await handlerApi.post('accounts');
+			await api.post('accounts');
 			return true;
 		} catch({response}) {
-			console.log(response);
 			Swal.fire({
 				title: 'Erro',
 				text: `${response.data}`,
@@ -50,14 +51,14 @@ export function AuthProvider(props) {
 		if(!token) {
 			return false;
 		}
-		handlerApi.defaults.headers.common.authorization = `Bearer ${token}`;
+		api.defaults.headers.common.authorization = `Bearer ${token}`;
 		return true;
 	}
 
 	useEffect(() => {
 		const token = localStorage.getItem('@dolphin:token');
 		if(token) {
-			handlerApi.defaults.headers.common.authorization = `Bearer ${token}`;
+			api.defaults.headers.common.authorization = `Bearer ${token}`;
 		}
 	},[]);
 
