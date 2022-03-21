@@ -14,6 +14,7 @@ export function notification(title, message, type) {
 		title: title,
 		message: message,
 		type: type,
+		isMobile: true,
 		insert: "top",
 		container: "top-right",
 		animationIn: ["animate__animated", "animate__fadeIn"],
