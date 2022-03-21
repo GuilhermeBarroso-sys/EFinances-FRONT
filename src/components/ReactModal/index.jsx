@@ -1,5 +1,4 @@
 import Modal from 'react-modal';
-import styles from './styles.module.scss';
 export default function ReactModal({modalIsOpen, setModalIsOpen, children, customStyles = {content: {
 	width: '80%',
 	height: '80%',
