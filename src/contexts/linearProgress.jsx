@@ -6,7 +6,7 @@ export function LinearProgressProvider(props) {
 	const [isLoading, setIsLoading] = useState(false);
 	
 	return( 
-		<LinearProgressContext.Provider value = {{setIsLoading}}>
+		<LinearProgressContext.Provider value = {{isLoading, setIsLoading}}>
 			{isLoading && <LinearProgress />}
 			{props.children}  
 		</LinearProgressContext.Provider>

@@ -38,11 +38,14 @@ export default function NewTransaction({modal}) {
 		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
-		api.post('transactions', {
+		api.post('transactions?delay=5500', {
 			value: parseFloat(amount), category : transaction, datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(() => {
 			setIsLoading(false);
 			notification('Sucesso', 'Transacao criada com sucesso!', 'success');
+		}).catch(() => {
+			setIsLoading(false);
+			notification('Erro', 'Algo deu errado!', 'danger');
 		});
 	}
 
