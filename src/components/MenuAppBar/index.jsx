@@ -10,6 +10,8 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authentication';
 const settings = [
 	{
 		title:'Dashboard',
@@ -18,17 +20,13 @@ const settings = [
 	{
 		title:'Meu Perfil',
 		anchor: '/user',
-	},
-	{
-		title:'Sair',
-		anchor: '/logout',
 	}
 ];
 
 export default function MenuAppBar() {
 
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+	const {signOut} = useContext(AuthContext);
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
@@ -75,9 +73,12 @@ export default function MenuAppBar() {
 						>
 							{settings.map(({title, anchor}, index) => (
 								<MenuItem key={index} onClick={handleCloseUserMenu}>
-									<Link style = {{textDecoration:'none', color: 'var(--text-title)'}} to = {anchor}> <Typography textAlign="center">{title}</Typography> </Link> 
+									<Link style = {{textDecoration:'none', color: 'var(--text-title)', width:'100%'}} to = {anchor}> {title} </Link> 
 								</MenuItem>
 							))}
+							<MenuItem  onClick={signOut}>
+								<Link style = {{textDecoration:'none', color: 'var(--text-title)', width:'100%'}} to = '/login'> Sair </Link> 
+							</MenuItem>
 						</Menu>
 					</Box>
 				</Toolbar>
