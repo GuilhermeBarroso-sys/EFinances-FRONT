@@ -14,8 +14,10 @@ import {useContext, useState} from 'react';
 import NewTransaction from "../../components/NewTransaction";
 import { AuthContext } from "../../contexts/authentication";
 import { Navigate } from "react-router-dom";
+
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
+
 	const [modalIsOpen, setModalIsOpen] = useState(false);
   
 	return (
@@ -23,7 +25,7 @@ export default function Dashboard() {
 			{/** Modal content New Transaction */}
 			{!isAuthenticated() && <Navigate to = '/login' />}
 			<ReactModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-				<NewTransaction />
+				<NewTransaction modal = {setModalIsOpen}/>
 			</ReactModal>
 			<MenuAppBar />
 			<MarginTop margin={`3rem`}/>

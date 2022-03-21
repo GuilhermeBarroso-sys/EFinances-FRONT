@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import OutlinedInput from '@mui/material/OutlinedInput';
-import DatePicker from '@mui/lab/DatePicker';
+import {DateTimePicker} from '@mui/lab';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
@@ -12,9 +12,11 @@ import {useState} from 'react';
 import { api } from "../../services/api";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authentication";
-export default function NewTransaction() {
+import { convertDateToString } from "../../functions/convertDateToString";
+import { LinearProgressContext } from "../../contexts/linearProgress";
+import { notification } from "../../functions/notification";
+export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
-	console.log(user);
 	const selectOptions = [
 		{
 			value: 'input',
@@ -24,21 +26,29 @@ export default function NewTransaction() {
 			label: 'Saida'
 		},
 	];
-
+  
 	const maskMap = {
-		ptBr: '__/__/____'
+		ptBr: '__/__/____ __:__'
 	};
 	const [transaction, setTransaction] = useState('input');
 	const [amount, setAmount] = useState('');
-	const [transactionDate, setTransactionDate] = useState();
+	const [transactionDate, setTransactionDate] = useState(new Date());
+	const {setIsLoading} = useContext(LinearProgressContext);
 	function handleSubmit(event) {
+		modal(false);
+		setIsLoading(true);
 		event.preventDefault();
 		api.post('transactions', {
-	    // value: amount, category : transaction, datetime: transactionDate, account_id
-	  }).then(data => {console.log(data);});
+			value: parseFloat(amount), category : transaction, datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
+		}).then(() => {
+			setIsLoading(false);
+			notification('Sucesso', 'Transacao criada com sucesso!', 'success');
+		});
 	}
+
 	return (
 		<div className = {styles.modalStyle}> 
+			
 			<form>
 				<h1>Adicionar transação</h1>
 				<MarginTop margin={'1.3rem'}  />
@@ -53,21 +63,21 @@ export default function NewTransaction() {
 					<OutlinedInput
 						id="outlined-adornment-amount"
 						value={amount}
-						onChange={(event) => {setAmount(event.target.value);}}
+						type="number"
+						onChange={(event) => {
+							setAmount(event.target.value);
+						}}
 						startAdornment={<InputAdornment position="start">$</InputAdornment>}
 						label=""
 						fullWidth
 					/>
 					<MarginTop margin={'2rem'}  />
 		
-					<DatePicker
+					<DateTimePicker
 						mask={maskMap['ptBr']}
-            
 						label="Data da transação"
 						value={transactionDate}
-					
 						onChange={(date) => {
-							console.log(date);
 							setTransactionDate(date);
 						}}
             

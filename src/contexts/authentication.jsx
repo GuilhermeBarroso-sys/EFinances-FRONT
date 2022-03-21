@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 export const AuthContext = createContext({});
 export function AuthProvider(props) {
 	const [user, setUser] = useState(null);
-	console.log(user);
+
 	async function signIn(email, password ) {
 		try {
 			const {data} = await api.post('users/authenticate', { email, password });
@@ -12,15 +12,10 @@ export function AuthProvider(props) {
 			localStorage.setItem('@dolphin:token', token);
 			api.defaults.headers.common.authorization = `Bearer ${token}`;
 			setUser(user);
-			console.log(user);
+
 			return true;
 		} catch({response}) {
-			Swal.fire({
-				title: 'Erro',
-				text: "Por favor, verifique os campos!",
-				icon: "error",
-			});
-			return false;
+			return {message:response.data, status: response.status};
 		}
 	}
 
@@ -57,9 +52,11 @@ export function AuthProvider(props) {
 
 	useEffect(() => {
 		const token = localStorage.getItem('@dolphin:token');
-		if(token) {
-			api.defaults.headers.common.authorization = `Bearer ${token}`;
+		if(!token) {
+			signOut();
 		}
+		api.defaults.headers.common.authorization = `Bearer ${token}`;
+		api.get(`users`).then(({data}) => setUser(data)).catch(() => {signOut();});
 	},[]);
 
 	return (
