@@ -1,9 +1,16 @@
 .title {
 
-    margin-bottom:1rem ;
+    margin-top:1rem;
     color: #3f3535;
     font-size:3rem;
   
+}
+.logo {
+  width:200px;
+  height:200px;
+  @media screen and (max-width:600px) {
+    display:none;
+  }
 }
 .container{
   background-color: #ffffff94;
@@ -11,6 +18,7 @@
   border-radius: 25px;
   max-width:724px;
   margin: 0 auto;
+ 
   .box {
     width:90%;
     display:flex;
@@ -22,5 +30,9 @@
       margin:0.225rem 0;
     }
   }
- 
+  .smallText {
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: 400;
+  }
 }

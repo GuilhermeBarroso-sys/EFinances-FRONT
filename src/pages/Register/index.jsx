@@ -4,7 +4,8 @@ import styles from './styles.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/authentication';
 import { Button } from '@mui/material';
-import {Navigate} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
+import undrawRegister from '../../assets/undraw_register.svg';
 import { LinearProgressContext } from '../../contexts/linearProgress';
 export default function Register() {
 	const {signUp} = useContext(AuthContext);
@@ -29,8 +30,10 @@ export default function Register() {
 	}
 	return (
 		<div className={screenCenter}>
+      
 			{redirect && <Navigate to = '/dashboard' />}
 			<h1 className={styles.title}>Registrar-se</h1>
+			<img src = {undrawRegister} className = {styles.logo} />
 			<div className={styles.container}>
 				<div className = {styles.box}>
 					<div><TextField onChange = {(event) => setName(event.target.value)} className = {styles.input} label="Nome" variant="outlined" /></div>
@@ -44,7 +47,10 @@ export default function Register() {
 					?<Button disabled  variant = "contained" >Enviar</Button>
 					:<Button onClick = {() => {handleSignUp(email,password);}}variant = "contained" >Enviar</Button>
 				}
+				<br />
+				<br />
 
+				<Link to = "/login" className={styles.smallText}><small> Possui uma conta? Clique aqui para entrar</small> </Link>
 			</div> 
 		</div>
 	);
