@@ -45,7 +45,7 @@ export default function Register() {
 
 				{isLoading 
 					?<Button disabled  variant = "contained" >Enviar</Button>
-					:<Button onClick = {() => {handleSignUp(email,password);}}variant = "contained" >Enviar</Button>
+					:<Button onClick = {handleSignUp}variant = "contained" >Enviar</Button>
 				}
 				<br />
 				<br />

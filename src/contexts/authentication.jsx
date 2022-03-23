@@ -30,7 +30,6 @@ export function AuthProvider(props) {
 	
 			await api.post('users?delay=2500', { name, email, password}),
 			await signIn(email, password);
-			await api.post('accounts');
 			return true;
 		} catch({response}) {
 			Swal.fire({
@@ -57,7 +56,7 @@ export function AuthProvider(props) {
 	async function fetchUser() {
 		try {
 			const {data} = await api.get('users');
-			console.log(data);
+		
 			setUser(data);
 		} catch(err) {
 			signOut();
