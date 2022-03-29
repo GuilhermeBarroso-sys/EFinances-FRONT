@@ -6,9 +6,8 @@ import MarginTop from "../../components/MarginTop";
 import ArrowUp from '@mui/icons-material/ArrowCircleUp';
 import ArrowDown from '@mui/icons-material/ArrowCircleDown';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import DataTable from "../../components/DataTable";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {addButton} from './styles.module.scss';
+import styles, {addButton} from './styles.module.scss';
 import ReactModal from '../../components/ReactModal';
 import {useContext, useState} from 'react';
 import NewTransaction from "../../components/NewTransaction";
@@ -19,13 +18,14 @@ import { Transactions } from "../../components/Transactions";
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
 	const {isLoading} = useContext(LinearProgressContext);
+	const [transactionRows, setTransactionRows] = useState([]);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	return (
 		<>
 			{/** Modal content New Transaction */}
 			{isAuthenticated()}
 			<ReactModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-				<NewTransaction modal = {setModalIsOpen}/>
+				<NewTransaction modal = {setModalIsOpen} />
 			</ReactModal>
 			<MenuAppBar />
 			<MarginTop margin={`3rem`}/>
@@ -45,7 +45,8 @@ export default function Dashboard() {
 			<MuiContainer maxWidth = 'lg'>
 				{isLoading ? <CircularProgress disabled /> :<AddCircleIcon onClick = {() => {setModalIsOpen(true);}} className = {addButton}  fontSize = "large"/>}
 				<MarginTop margin={`1rem`} />
-				{isLoading ? `teste`: <Transactions />}
+			
+				<Transactions transactionRows={transactionRows} setTransactionRows={setTransactionRows} />
 			</MuiContainer>
 		</>
 

@@ -1,27 +1,27 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import styles from './styles.module.scss';
+
 import { api } from "../../services/api";
 import {AuthContext}  from '../../contexts/authentication';
 import DataTable from "../DataTable";
 import { format, parseISO } from "date-fns";
-import { convertStringToDate } from "../../functions/convertStringToDate";
-
-export function Transactions() {
+import  {BulletList} from 'react-content-loader';
+export function Transactions({transactionRows, setTransactionRows}) {
 	const {user} = useContext(AuthContext);
-
-	const [rows, setRows] = useState([]);
+	const [transactionLoading, setTransactionLoading] = useState(true);
 
 	useEffect(() => {
 		if(user){
-			api.get(`transactions/${user.Account[0].id}`).then(({data}) => {
-				setRows(data.map(({id,name,value,category,datetime}) => {
+			api.get(`transactions/${user.Account[0].id}?delay=2500`).then(({data}) => {
+				setTransactionRows(data.map(({id,name,value,type,datetime}) => {
 		
 					datetime = format(parseISO(datetime), 'dd/MM/yyyy HH:mm:ss');
-					console.log(id);
-					return {id, name, value, category, datetime};
+					type = type == 'income' ? 'Entrada' : 'Saida';
+					return {id, name, value, type, datetime};
 				}));
+				setTransactionLoading(false);
 			});
 		}
-		return;
 	}, [user]);
   
 	// const rows = [
@@ -35,7 +35,7 @@ export function Transactions() {
 	const columns = [
 		{ id: 1, field: 'value', headerName: 'Valor', width: 250},
 		{ id: 2, field: 'name', headerName: 'Nome', width: 250},
-		{ id: 3, field: 'category', headerName: 'Tipo da transação', width: 450 },
+		{ id: 3, field: 'type', headerName: 'Tipo da transação', width: 450 },
 		{ id: 4, field: 'datetime', headerName: 'Data da transação', width: 350 },
 		// {
 		//   field: 'age',
@@ -54,6 +54,8 @@ export function Transactions() {
 		// },
 	];
   
-
-	return <DataTable rows = {rows} columns = {columns}/>;
+  
+	return  transactionLoading ? 	<div className={styles.datatableLoading}><BulletList style={{
+		width: '80%',
+	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactionRows} columns = {columns}/>;
 }

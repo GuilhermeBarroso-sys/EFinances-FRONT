@@ -19,7 +19,7 @@ export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
 		{
-			value: 'input',
+			value: 'income',
 			label: 'Entrada'
 		},  {
 			value: 'outcome',
@@ -30,7 +30,8 @@ export default function NewTransaction({modal}) {
 	const maskMap = {
 		ptBr: '__/__/____ __:__'
 	};
-	const [transaction, setTransaction] = useState('input');
+	const [name, setName] = useState('');
+	const [type, setType] = useState('income');
 	const [amount, setAmount] = useState('');
 	const [transactionDate, setTransactionDate] = useState(new Date());
 	const {setIsLoading} = useContext(LinearProgressContext);
@@ -38,8 +39,8 @@ export default function NewTransaction({modal}) {
 		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
-		api.post('transactions?delay=5500', {
-			value: parseFloat(amount), category : transaction, datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
+		api.post('transactions?delay=2500', {
+			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data, status}) => {
 			if(status == 201) {
 				setIsLoading(false);
@@ -64,9 +65,9 @@ export default function NewTransaction({modal}) {
 
 				<MuiContainer >
 				
-					<TextField id="standard-basic" label="Nome da transação"  fullWidth/>
+					<TextField onChange={(event) => {setName(event.target.value);}} label="Nome da transação"  fullWidth/>
 					<MarginTop margin={'2rem'}  />
-					<SelectOptions value = {transaction} setValue= {setTransaction} options = {selectOptions} selectLabel = {"Tipo de transação"} helperText = {""} />
+					<SelectOptions value = {type} setValue= {setType} options = {selectOptions} selectLabel = {"Tipo de transação"} helperText = {""} />
 					<MarginTop margin={'1.1rem'}  />
 					<InputLabel htmlFor="outlined-adornment-amount">Valor da transação</InputLabel>
 					<OutlinedInput
