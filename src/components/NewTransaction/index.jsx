@@ -38,7 +38,7 @@ export default function NewTransaction({modal}) {
 		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
-		api.post('transactions', {
+		api.post('transactions?delay=5500', {
 			value: parseFloat(amount), category : transaction, datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data, status}) => {
 			if(status == 201) {

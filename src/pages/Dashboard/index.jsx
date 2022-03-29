@@ -13,17 +13,16 @@ import ReactModal from '../../components/ReactModal';
 import {useContext, useState} from 'react';
 import NewTransaction from "../../components/NewTransaction";
 import { AuthContext } from "../../contexts/authentication";
-import { Navigate } from "react-router-dom";
-
+import { LinearProgressContext } from "../../contexts/linearProgress";
+import { CircularProgress } from "@mui/material";
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
-
+	const {isLoading} = useContext(LinearProgressContext);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-  
 	return (
 		<>
 			{/** Modal content New Transaction */}
-			{!isAuthenticated() && <Navigate to = '/login' />}
+			{isAuthenticated()}
 			<ReactModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
 				<NewTransaction modal = {setModalIsOpen}/>
 			</ReactModal>
@@ -43,7 +42,7 @@ export default function Dashboard() {
 
 			{/** Datatable */}
 			<MuiContainer maxWidth = 'lg'>
-				<AddCircleIcon onClick = {() => {setModalIsOpen(true);}} className = {addButton}  fontSize = "large"/>
+				{isLoading ? <CircularProgress disabled /> :<AddCircleIcon onClick = {() => {setModalIsOpen(true);}} className = {addButton}  fontSize = "large"/>}
 				<MarginTop margin={`1rem`} />
 				<DataTable />
 			</MuiContainer>

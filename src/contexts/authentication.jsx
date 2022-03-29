@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import Swal from 'sweetalert2';
+import {Navigate} from 'react-router-dom';
 export const AuthContext = createContext({});
+
 export function AuthProvider(props) {
 	const [user, setUser] = useState(null);
 
@@ -12,19 +14,22 @@ export function AuthProvider(props) {
 			localStorage.setItem('@dolphin:token', token);
 			api.defaults.headers.common.authorization = `Bearer ${token}`;
 			setUser(user);
-
 			return true;
 		} catch({response}) {
-			return {message:response.data, status: response.status};
+			Swal.fire({
+				title: 'Erro',
+				text: `${response.data}`,
+				icon: "error",
+			});
+			return false;
 		}
 	}
 
 	async function signUp(name,email,password) {
 		try {
 	
-			await api.post('users', { name, email, password}),
+			await api.post('users?delay=2500', { name, email, password}),
 			await signIn(email, password);
-			await api.post('accounts');
 			return true;
 		} catch({response}) {
 			Swal.fire({
@@ -44,19 +49,29 @@ export function AuthProvider(props) {
 	function isAuthenticated(){
 		const token = localStorage.getItem('@dolphin:token');
 		if(!token) {
-			return false;
+			return <Navigate  to = '/login'/>;
 		}
-		api.defaults.headers.common.authorization = `Bearer ${token}`;
-		return true;
+	}
+  
+	async function fetchUser() {
+		try {
+			const {data} = await api.get('users');
+		
+			setUser(data);
+		} catch(err) {
+			signOut();
+      
+		}
 	}
 
 	useEffect(() => {
 		const token = localStorage.getItem('@dolphin:token');
 		if(!token) {
 			signOut();
+			return;
 		}
 		api.defaults.headers.common.authorization = `Bearer ${token}`;
-		api.get(`users`).then(({data}) => setUser(data)).catch(() => {signOut();});
+		fetchUser();
 	},[]);
 
 	return (
