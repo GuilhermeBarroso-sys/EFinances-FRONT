@@ -40,9 +40,18 @@ export default function NewTransaction({modal}) {
 		event.preventDefault();
 		api.post('transactions', {
 			value: parseFloat(amount), category : transaction, datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
-		}).then(() => {
+		}).then(({data, status}) => {
+			if(status == 201) {
+				setIsLoading(false);
+				notification('Sucesso', 'Transacao criada com sucesso!', 'success');
+				return;
+			}
 			setIsLoading(false);
-			notification('Sucesso', 'Transacao criada com sucesso!', 'success');
+			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
+			console.log(data);
+		}).catch(() => {
+			setIsLoading(false);
+			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
 		});
 	}
 
