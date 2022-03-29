@@ -15,6 +15,7 @@ import NewTransaction from "../../components/NewTransaction";
 import { AuthContext } from "../../contexts/authentication";
 import { LinearProgressContext } from "../../contexts/linearProgress";
 import { CircularProgress } from "@mui/material";
+import { Transactions } from "../../components/Transactions";
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
 	const {isLoading} = useContext(LinearProgressContext);
@@ -44,7 +45,7 @@ export default function Dashboard() {
 			<MuiContainer maxWidth = 'lg'>
 				{isLoading ? <CircularProgress disabled /> :<AddCircleIcon onClick = {() => {setModalIsOpen(true);}} className = {addButton}  fontSize = "large"/>}
 				<MarginTop margin={`1rem`} />
-				<DataTable />
+				{isLoading ? `teste`: <Transactions />}
 			</MuiContainer>
 		</>
 

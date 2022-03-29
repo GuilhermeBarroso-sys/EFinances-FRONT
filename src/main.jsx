@@ -16,10 +16,8 @@ import { LinearProgressProvider } from './contexts/linearProgress';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
-
 import 'react-notifications-component/dist/theme.css';
 import { ReactNotifications } from 'react-notifications-component';
-import { Logout } from './components/Logout';
 const localeMap = {
 	ptBr: brLocale
 };
