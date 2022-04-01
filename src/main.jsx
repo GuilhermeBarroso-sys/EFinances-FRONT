@@ -23,6 +23,7 @@ const localeMap = {
 };
 ReactDOM.render(
 	<React.StrictMode>
+		{console.log(import.meta.env.VITE_DEVELOPMENT)}
 		<LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap['ptBr']}>
 			<LinearProgressProvider>
 				<AuthProvider>
