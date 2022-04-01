@@ -16,6 +16,7 @@ import { convertDateToString } from "../../functions/convertDateToString";
 import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { notification } from "../../functions/notification";
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
+import { format, parseISO } from "date-fns";
 export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
@@ -46,6 +47,8 @@ export default function NewTransaction({modal}) {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data,status}) => {
 			if(status == 201) {
+				data.datetime = format(parseISO(data.datetime), 'dd/MM/yyyy HH:mm:ss');
+				data.type = type == 'income' ? 'Entrada' : 'Saida';
 				setTransactions([...transactions, data]);
 				setIsLoading(false);
 				notification('Sucesso', 'Transacao criada com sucesso!', 'success');
