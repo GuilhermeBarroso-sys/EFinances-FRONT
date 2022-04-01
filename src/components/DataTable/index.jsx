@@ -1,13 +1,9 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useContext } from 'react';
-import { LinearProgressContext } from '../../contexts/linearProgress';
-
-
-
-
+import styles from './styles.module.scss';
+import noData from '../../assets/noData.svg';
 export default function DataTable({rows, columns}) {
 	return (
-		rows.length > 1 
+		rows.length > 0 
 			? (	
 				<div style={{ width: '100%'} }>
 					<DataGrid
@@ -21,8 +17,12 @@ export default function DataTable({rows, columns}) {
 				</div>)
 			: (
         
-				<div>
-          Sem dados por aqui
+				<div className = {styles.noDataContainer}>
+					<br/>
+					<h1> Sem Dados Por aqui!</h1>
+					<br/>
+					<br/>
+					<img src = {noData} />
 				</div>
 			)
 	
