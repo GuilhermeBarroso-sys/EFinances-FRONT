@@ -3,9 +3,9 @@ import TextField from '@mui/material/TextField';
 import styles from './styles.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/authentication';
-import { Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import {Navigate, Link} from 'react-router-dom';
-import { LinearProgressContext } from '../../contexts/linearProgress';
+import { GlobalLoadingContext } from '../../contexts/globalLoading';
 import undrawLogin from '../../assets/undraw_login.svg';
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [redirect, setRedirect] = useState(false);
-	const {isLoading, setIsLoading} = useContext(LinearProgressContext);
+	const {isLoading, setIsLoading} = useContext(GlobalLoadingContext);
 	useEffect(() => {
 		const token = localStorage.getItem('@dolphin:token');
 		if(token) {
@@ -24,7 +24,6 @@ export default function Login() {
 		setIsLoading(true);
 		const successRegister = await signIn(email,password);
 		setIsLoading(false);
-		console.log(successRegister);
 		if(successRegister) {
 			setRedirect(true);
 		} 

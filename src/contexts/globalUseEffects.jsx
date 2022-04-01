@@ -1,15 +1,14 @@
-import { LinearProgress } from "@mui/material";
 import { createContext, useState } from "react";
-export const GlobalUseEffect = createContext({});
+export const GlobalUseEffectsContext = createContext({});
 
-export function LinearProgressProvider(props) {
-	const [isLoading, setIsLoading] = useState([]);
+export function GlobalUseEffectProvider(props) {
+	const [transactions, setTransactions] = useState([]);
 	
 	return( 
-		<GlobalUseEffect.Provider value = {{
-			isLoading, setIsLoading,
+		<GlobalUseEffectsContext.Provider value = {{
+			transactions, setTransactions,
 		}}>
 			{props.children}  
-		</GlobalUseEffect.Provider>
+		</GlobalUseEffectsContext.Provider>
 	);
 }
