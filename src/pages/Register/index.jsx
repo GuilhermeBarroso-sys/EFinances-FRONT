@@ -6,14 +6,14 @@ import { AuthContext } from '../../contexts/authentication';
 import { Button } from '@mui/material';
 import {Link, Navigate} from 'react-router-dom';
 import undrawRegister from '../../assets/undraw_register.svg';
-import { LinearProgressContext } from '../../contexts/linearProgress';
+import { GlobalLoadingContext } from '../../contexts/globalLoading';
 export default function Register() {
 	const {signUp} = useContext(AuthContext);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [redirect, setRedirect] = useState(false);
-	const {isLoading, setIsLoading} = useContext(LinearProgressContext);
+	const {isLoading, setIsLoading} = useContext(GlobalLoadingContext);
 	useEffect(() => {
 		const token = localStorage.getItem('@dolphin:token');
 		if(token) {

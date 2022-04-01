@@ -1,14 +1,14 @@
 import { LinearProgress } from "@mui/material";
 import { createContext, useState } from "react";
-export const LinearProgressContext = createContext({});
+export const GlobalLoadingContext = createContext({});
 
-export function LinearProgressProvider(props) {
+export function GlobalLoadingProvider(props) {
 	const [isLoading, setIsLoading] = useState(false);
 	
 	return( 
-		<LinearProgressContext.Provider value = {{isLoading, setIsLoading}}>
+		<GlobalLoadingContext.Provider value = {{isLoading, setIsLoading}}>
 			{isLoading && <LinearProgress />}
 			{props.children}  
-		</LinearProgressContext.Provider>
+		</GlobalLoadingContext.Provider>
 	);
 }

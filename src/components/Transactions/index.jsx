@@ -6,15 +6,15 @@ import {AuthContext}  from '../../contexts/authentication';
 import DataTable from "../DataTable";
 import { format, parseISO } from "date-fns";
 import  {BulletList} from 'react-content-loader';
-export function Transactions({transactionRows, setTransactionRows}) {
+import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
+export function Transactions() {
 	const {user} = useContext(AuthContext);
 	const [transactionLoading, setTransactionLoading] = useState(true);
-
+	const {transactions, setTransactions} = useContext(GlobalUseEffectsContext);
 	useEffect(() => {
 		if(user){
 			api.get(`transactions/${user.Account[0].id}?delay=2500`).then(({data}) => {
-				setTransactionRows(data.map(({id,name,value,type,datetime}) => {
-		
+				setTransactions(data.map(({id,name,value,type,datetime}) => {
 					datetime = format(parseISO(datetime), 'dd/MM/yyyy HH:mm:ss');
 					type = type == 'income' ? 'Entrada' : 'Saida';
 					return {id, name, value, type, datetime};
@@ -33,8 +33,8 @@ export function Transactions({transactionRows, setTransactionRows}) {
 	// 	{id: 6, name: 'Notebook', value: '4000', category: 'Equipamento', data: '01/05/2022'},
 	// ];
 	const columns = [
-		{ id: 1, field: 'value', headerName: 'Valor', width: 250},
 		{ id: 2, field: 'name', headerName: 'Nome', width: 250},
+		{ id: 1, field: 'value', headerName: 'Valor', width: 250},
 		{ id: 3, field: 'type', headerName: 'Tipo da transação', width: 450 },
 		{ id: 4, field: 'datetime', headerName: 'Data da transação', width: 350 },
 		// {
@@ -57,5 +57,5 @@ export function Transactions({transactionRows, setTransactionRows}) {
   
 	return  transactionLoading ? 	<div className={styles.datatableLoading}><BulletList style={{
 		width: '80%',
-	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactionRows} columns = {columns}/>;
+	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactions} columns = {columns}/>;
 }

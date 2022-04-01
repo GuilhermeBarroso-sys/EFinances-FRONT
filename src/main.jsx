@@ -12,7 +12,9 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import brLocale from 'date-fns/locale/pt-BR';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { AuthProvider } from './contexts/authentication';
-import { LinearProgressProvider } from './contexts/linearProgress';
+import { GlobalLoadingProvider } from './contexts/globalLoading';
+import { GlobalUseEffectProvider } from './contexts/globalUseEffects';
+
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -23,22 +25,22 @@ const localeMap = {
 };
 ReactDOM.render(
 	<React.StrictMode>
-		{console.log(import.meta.env.VITE_DEVELOPMENT)}
 		<LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap['ptBr']}>
-			<LinearProgressProvider>
-				<AuthProvider>
-					<ReactNotifications />
-					<BrowserRouter>
-						<Routes>
-							<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
-							<Route path="/dashboard"  element={<Dashboard/>} />
-							<Route path="/register" element={<Register/>} />
-							<Route path="/login" element={<Login />} />				
-						</Routes>
-					</BrowserRouter>
-			
-				</AuthProvider>
-			</LinearProgressProvider>
+			<GlobalLoadingProvider>
+				<GlobalUseEffectProvider>
+					<AuthProvider>
+						<ReactNotifications />
+						<BrowserRouter>
+							<Routes>
+								<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
+								<Route path="/dashboard"  element={<Dashboard/>} />
+								<Route path="/register" element={<Register/>} />
+								<Route path="/login" element={<Login />} />				
+							</Routes>
+						</BrowserRouter>
+					</AuthProvider>
+				</GlobalUseEffectProvider>
+			</GlobalLoadingProvider>
 		</LocalizationProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

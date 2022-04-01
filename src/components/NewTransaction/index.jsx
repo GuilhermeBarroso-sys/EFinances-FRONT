@@ -13,8 +13,9 @@ import { api } from "../../services/api";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authentication";
 import { convertDateToString } from "../../functions/convertDateToString";
-import { LinearProgressContext } from "../../contexts/linearProgress";
+import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { notification } from "../../functions/notification";
+import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
 export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
@@ -34,22 +35,24 @@ export default function NewTransaction({modal}) {
 	const [type, setType] = useState('income');
 	const [amount, setAmount] = useState('');
 	const [transactionDate, setTransactionDate] = useState(new Date());
-	const {setIsLoading} = useContext(LinearProgressContext);
+	const {setIsLoading} = useContext(GlobalLoadingContext);
+	const {transactions, setTransactions} = useContext(GlobalUseEffectsContext);
+
 	function handleSubmit(event) {
 		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
 		api.post('transactions?delay=2500', {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
-		}).then(({data, status}) => {
+		}).then(({data,status}) => {
 			if(status == 201) {
+				setTransactions([...transactions, data]);
 				setIsLoading(false);
 				notification('Sucesso', 'Transacao criada com sucesso!', 'success');
 				return;
 			}
 			setIsLoading(false);
 			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
-			console.log(data);
 		}).catch(() => {
 			setIsLoading(false);
 			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
