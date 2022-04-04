@@ -43,7 +43,7 @@ export default function NewTransaction({modal}) {
 		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
-		api.post('transactions?delay=2500', {
+		api.post('transactions', {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data,status}) => {
 			if(status == 201) {
