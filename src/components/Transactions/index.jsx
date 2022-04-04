@@ -7,13 +7,47 @@ import DataTable from "../DataTable";
 import { format, parseISO } from "date-fns";
 import  {BulletList} from 'react-content-loader';
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
+import Swal from "sweetalert2";
 export function Transactions() {
+	
 	const {user} = useContext(AuthContext);
 	const [transactionLoading, setTransactionLoading] = useState(true);
 	const {transactions, setTransactions} = useContext(GlobalUseEffectsContext);
+	async function handleDelete(transactionSelect, setTransactionSelect) {
+		const {isConfirmed} = await Swal.fire({
+			title: 'Você tem certeza?',
+			text: 'Os dados serão apagados!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Deletar',
+			cancelButtonText: 'Cancelar'
+		});
+		if(isConfirmed) {
+			const ids = transactionSelect.toString();
+			try {
+				await api.delete(`/transactions?ids=${ids}`);
+				const data = transactions.map(transaction => {
+					if(!(transactionSelect.includes(transaction.id))) {
+						return transaction;
+					}
+				});
+		
+				setTransactions(data.filter(data => data != undefined));
+				setTransactionSelect([]);
+				Swal.fire('Sucesso', 'Deletado com sucesso', 'success');
+
+        
+			} catch( err) {
+				Swal.fire('Erro', 'Algo deu errado', 'error');
+			}
+		} 
+
+	}
 	useEffect(() => {
 		if(user){
-			api.get(`transactions/${user.Account[0].id}?delay=2500`).then(({data}) => {
+			api.get(`transactions/${user.Account[0].id}`).then(({data}) => {
 				setTransactions(data.map(({id,name,value,type,datetime}) => {
 					datetime = format(parseISO(datetime), 'dd/MM/yyyy HH:mm:ss');
 					type = type == 'income' ? 'Entrada' : 'Saida';
@@ -57,5 +91,5 @@ export function Transactions() {
   
 	return  transactionLoading ? 	<div className={styles.datatableLoading}><BulletList style={{
 		width: '80%',
-	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactions} columns = {columns}/>;
+	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactions} columns = {columns} handleDelete = {handleDelete}/>;
 }

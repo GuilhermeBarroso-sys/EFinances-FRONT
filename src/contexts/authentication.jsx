@@ -28,7 +28,7 @@ export function AuthProvider(props) {
 	async function signUp(name,email,password) {
 		try {
 	
-			await api.post('users?delay=2500', { name, email, password}),
+			await api.post('users', { name, email, password}),
 			await signIn(email, password);
 			return true;
 		} catch({response}) {

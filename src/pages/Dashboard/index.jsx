@@ -15,9 +15,11 @@ import { AuthContext } from "../../contexts/authentication";
 import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { CircularProgress } from "@mui/material";
 import { Transactions } from "../../components/Transactions";
+import { getIncomeSum } from "../../functions/getIncomeSum";
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
 	const {isLoading} = useContext(GlobalLoadingContext);
+	const {transactions} = useContext(GlobalLoadingContext);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	return (
 		<>
@@ -32,7 +34,7 @@ export default function Dashboard() {
 			{/** Dashboard */}
 			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
 				<Box >
-					<InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {'R$ 1500.00'} />
+					<InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {getIncomeSum(transactions)} />
 					<InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {'R$ 1300.00'}/>
 					<InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {'R$ 200.00'} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: 'var(--green)'}}/>
 				</Box>

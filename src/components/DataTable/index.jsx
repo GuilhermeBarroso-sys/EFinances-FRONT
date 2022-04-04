@@ -1,18 +1,39 @@
 import { DataGrid } from '@mui/x-data-grid';
 import styles from './styles.module.scss';
 import noData from '../../assets/noData.svg';
-export default function DataTable({rows, columns}) {
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Button } from '@mui/material';
+import { useState } from 'react';
+export default function DataTable({rows, columns, handleDelete, handleUpdate}) {
+	const [selectedArray, setSelectedArray] = useState([]);
+
 	return (
+    
 		rows.length > 0 
 			? (	
-				<div style={{ width: '100%'} }>
+				<div style={{ width: '100%', height: '600px'} }>
+					<div className={styles.actions}>
+						{selectedArray.length > 0 && (
+							<>
+            
+								{/* <Button variant = "contained" color = "info">  <EditIcon /> </Button> */}
+								<Button variant = "contained" color = "error" onClick = {() => {
+									handleDelete(selectedArray, setSelectedArray);
+								}}> <DeleteForeverIcon /> </Button>
+							</>
+
+						)}
+					</div>
 					<DataGrid
+						onSelectionModelChange={(selected) => {
+							setSelectedArray(selected);
+						}}
+						rowsPerPageOptions = {[5]}
 						rows={rows}
 						columns={columns}
 						autoHeight={true}
+						checkboxSelection={true}
 						pageSize={5}
-						rowsPerPageOptions={[5]}
-						checkboxSelection
 					/>
 				</div>)
 			: (
