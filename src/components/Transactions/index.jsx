@@ -8,15 +8,17 @@ import { format, parseISO } from "date-fns";
 import  {BulletList} from 'react-content-loader';
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
 import Swal from "sweetalert2";
+import { notification } from "../../functions/notification";
 export function Transactions() {
 	
 	const {user} = useContext(AuthContext);
 	const [transactionLoading, setTransactionLoading] = useState(true);
-	const {transactions, setTransactions} = useContext(GlobalUseEffectsContext);
+	const {transactions, setTransactions, transactionsData, setTransactionsData} = useContext(GlobalUseEffectsContext);
 	async function handleDelete(transactionSelect, setTransactionSelect) {
+		const transactionLength = transactionSelect.length;
 		const {isConfirmed} = await Swal.fire({
 			title: 'Você tem certeza?',
-			text: 'Os dados serão apagados!',
+			text:  transactionLength > 1 ? `${transactionLength} transações serão apagadas!` : 'Essa transação sera apagada!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -27,16 +29,27 @@ export function Transactions() {
 		if(isConfirmed) {
 			const ids = transactionSelect.toString();
 			try {
+				const newTransactionsData = transactionsData;
 				await api.delete(`/transactions?ids=${ids}`);
 				const data = transactions.map(transaction => {
+          
 					if(!(transactionSelect.includes(transaction.id))) {
 						return transaction;
+					} else {
+						transaction.type == 'Saida' 
+							? newTransactionsData.outcome = newTransactionsData.outcome - transaction.value
+							: newTransactionsData.income = newTransactionsData.income - transaction.value;
+  
+						newTransactionsData.total = newTransactionsData.income - newTransactionsData.outcome;
 					}
 				});
-		
+        
+				setTransactionsData(newTransactionsData);
 				setTransactions(data.filter(data => data != undefined));
+				transactionLength > 1 
+					? notification('Sucesso', `${transactionLength} Transações deletada com sucesso!`, 'success') 
+					: notification('Sucesso', ` Transação deletada com sucesso!`, 'success'); 
 				setTransactionSelect([]);
-				Swal.fire('Sucesso', 'Deletado com sucesso', 'success');
 
         
 			} catch( err) {
@@ -48,7 +61,12 @@ export function Transactions() {
 	useEffect(() => {
 		if(user){
 			api.get(`transactions/${user.Account[0].id}`).then(({data}) => {
-				setTransactions(data.map(({id,name,value,type,datetime}) => {
+				setTransactionsData({
+					income: data.income,
+					outcome: data.outcome,
+					total: data.total
+				});
+				setTransactions(data.transactions.map(({id,name,value,type,datetime}) => {
 					datetime = format(parseISO(datetime), 'dd/MM/yyyy HH:mm:ss');
 					type = type == 'income' ? 'Entrada' : 'Saida';
 					return {id, name, value, type, datetime};

@@ -17,6 +17,7 @@ import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { notification } from "../../functions/notification";
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
 import { format, parseISO } from "date-fns";
+import Swal from "sweetalert2";
 export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
@@ -37,21 +38,33 @@ export default function NewTransaction({modal}) {
 	const [amount, setAmount] = useState('');
 	const [transactionDate, setTransactionDate] = useState(new Date());
 	const {setIsLoading} = useContext(GlobalLoadingContext);
-	const {transactions, setTransactions} = useContext(GlobalUseEffectsContext);
+	const {transactions, transactionsData, setTransactions, setTransactionsData} = useContext(GlobalUseEffectsContext);
 
 	function handleSubmit(event) {
-		modal(false);
 		setIsLoading(true);
 		event.preventDefault();
+		if(type == 'outcome' && (transactionsData.total - parseInt(amount) < 0)) {
+
+			setIsLoading(false);
+			Swal.fire('Erro', 'Você não pode realizar uma transação de Saida pois não tem saldo suficiente.', 'error');
+			return;
+		}
+		modal(false);
 		api.post('transactions', {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data,status}) => {
 			if(status == 201) {
+				const newTransactionsData = transactionsData;
 				data.datetime = format(parseISO(data.datetime), 'dd/MM/yyyy HH:mm:ss');
 				data.type = type == 'income' ? 'Entrada' : 'Saida';
+				data.type == 'Entrada'
+					?	newTransactionsData.income = newTransactionsData.income + data.value 
+					:	newTransactionsData.outcome = newTransactionsData.outcome + data.value; 
+				newTransactionsData.total = newTransactionsData.income - newTransactionsData.outcome;
 				setTransactions([...transactions, data]);
+				setTransactionsData(newTransactionsData);
 				setIsLoading(false);
-				notification('Sucesso', 'Transacao criada com sucesso!', 'success');
+				notification('Sucesso', 'Transação criada com sucesso!', 'success');
 				return;
 			}
 			setIsLoading(false);
