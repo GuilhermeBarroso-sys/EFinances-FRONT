@@ -30,7 +30,7 @@ ReactDOM.render(
 				<GlobalUseEffectProvider>
 					<AuthProvider>
 						<ReactNotifications />
-						<BrowserRouter>
+						<BrowserRouter basename='/' >
 							<Routes>
 								<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
 								<Route path="/dashboard"  element={<Dashboard/>} />
