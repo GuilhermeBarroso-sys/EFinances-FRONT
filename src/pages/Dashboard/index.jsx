@@ -17,13 +17,18 @@ import { CircularProgress } from "@mui/material";
 import { Transactions } from "../../components/Transactions";
 import { returnMoneyFormat } from "../../functions/returnMoneyFormat";
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
+import { List } from "react-content-loader";
 export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
 	const {isLoading} = useContext(GlobalLoadingContext);
-	const {transactions} = useContext(GlobalLoadingContext);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const {transactionsData} = useContext(GlobalUseEffectsContext);
-
+	const [transactionsDataIsLoading, setTransactionsDataIsLoading] = useState(true);
+	useEffect(() => {
+		if(transactionsData.length != 0) {
+			setTransactionsDataIsLoading(false);
+		}
+	}, [transactionsData]);
 	return (
 		<>
 			{/** Modal content New Transaction */}
@@ -37,9 +42,9 @@ export default function Dashboard() {
 			{/** Dashboard */}
 			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
 				<Box >
-					<InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {returnMoneyFormat(transactionsData.income)} />
-					<InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {returnMoneyFormat(transactionsData.outcome)}/>
-					<InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {returnMoneyFormat(transactionsData.total)} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: 'var(--green)'}}/>
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {returnMoneyFormat(transactionsData.income)} />}
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {returnMoneyFormat(transactionsData.outcome)}/>}
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {returnMoneyFormat(transactionsData.total)} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: 'var(--green)'}}/>}
 				</Box>
 				<MarginTop margin={`3rem`}/>
 
