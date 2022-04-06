@@ -30,12 +30,12 @@ ReactDOM.render(
 				<GlobalUseEffectProvider>
 					<AuthProvider>
 						<ReactNotifications />
-						<BrowserRouter basename='/' >
+						<BrowserRouter>
 							<Routes>
-								<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
-								<Route path="/dashboard"  element={<Dashboard/>} />
-								<Route path="/register" element={<Register/>} />
-								<Route path="/login" element={<Login />} />				
+								<Route exact path = '/' element = {<Navigate to = '/dashboard'/>}/>
+								<Route exact path="/dashboard"  element={<Dashboard/>} />
+								<Route exact path="/register" element={<Register/>} />
+								<Route exact path="/login" element={<Login />} />				
 							</Routes>
 						</BrowserRouter>
 					</AuthProvider>
