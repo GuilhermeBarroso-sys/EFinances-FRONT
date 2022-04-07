@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	BrowserRouter,
 	Routes,
@@ -23,6 +23,7 @@ import { ReactNotifications } from 'react-notifications-component';
 const localeMap = {
 	ptBr: brLocale
 };
+
 ReactDOM.render(
 	<React.StrictMode>
 		<LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap['ptBr']}>
@@ -32,10 +33,10 @@ ReactDOM.render(
 						<ReactNotifications />
 						<BrowserRouter>
 							<Routes>
-								<Route exact path = '/' element = {<Navigate to = '/dashboard'/>}/>
-								<Route exact path="/dashboard"  element={<Dashboard/>} />
-								<Route exact path="/register" element={<Register/>} />
-								<Route exact path="/login" element={<Login />} />				
+								<Route path = '/'         element = {<Navigate to = '/dashboard'/>}/>
+								<Route index path="/dashboard"  element = {<Dashboard/>} />
+								<Route path="/register"   element = {<Register/>} />
+								<Route path="/login"      element = {<Login />} />				
 							</Routes>
 						</BrowserRouter>
 					</AuthProvider>

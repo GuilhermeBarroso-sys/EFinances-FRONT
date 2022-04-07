@@ -44,7 +44,7 @@ export default function Dashboard() {
 				<Box >
 					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {returnMoneyFormat(transactionsData.income)} />}
 					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {returnMoneyFormat(transactionsData.outcome)}/>}
-					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {returnMoneyFormat(transactionsData.total)} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: 'var(--green)'}}/>}
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {returnMoneyFormat(transactionsData.total)} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: transactionsData.total < 0 ? '#FF5959' :'var(--green)'}}/>}
 				</Box>
 				<MarginTop margin={`3rem`}/>
 

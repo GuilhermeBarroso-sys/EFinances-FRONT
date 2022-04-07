@@ -17,7 +17,6 @@ import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { notification } from "../../functions/notification";
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
 import { format, parseISO } from "date-fns";
-import Swal from "sweetalert2";
 export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
@@ -43,12 +42,6 @@ export default function NewTransaction({modal}) {
 	function handleSubmit(event) {
 		setIsLoading(true);
 		event.preventDefault();
-		if(type == 'outcome' && (transactionsData.total - parseInt(amount) < 0)) {
-
-			setIsLoading(false);
-			Swal.fire('Erro', 'Você não pode realizar uma transação de Saida pois não tem saldo suficiente.', 'error');
-			return;
-		}
 		modal(false);
 		api.post('transactions', {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
@@ -77,13 +70,10 @@ export default function NewTransaction({modal}) {
 
 	return (
 		<div className = {styles.modalStyle}> 
-			
 			<form>
 				<h1>Adicionar transação</h1>
 				<MarginTop margin={'1.3rem'}  />
-
 				<MuiContainer >
-				
 					<TextField onChange={(event) => {setName(event.target.value);}} label="Nome da transação"  fullWidth/>
 					<MarginTop margin={'2rem'}  />
 					<SelectOptions value = {type} setValue= {setType} options = {selectOptions} selectLabel = {"Tipo de transação"} helperText = {""} />
