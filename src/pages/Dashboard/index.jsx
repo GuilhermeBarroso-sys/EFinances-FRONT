@@ -37,7 +37,8 @@ export default function Dashboard() {
 				<NewTransaction modal = {setModalIsOpen} />
 			</ReactModal>
 			<MenuAppBar />
-			<MarginTop margin={`3rem`}/>
+			<MarginTop margin={`7rem`}/>
+      
 
 			{/** Dashboard */}
 			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
