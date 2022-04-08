@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "yarn build && aws s3 rm s3://golfinhoninja.com.br --recursive && aws s3 sync dist s3://golfinhoninja.com.br",
+    "deploy": "yarn build && aws s3 rm s3://golfinhoninja.com.br --recursive && aws s3 sync dist s3://golfinhoninja.com.br && rm -R dist",
     "preview": "vite preview"
   },
   "dependencies": {
