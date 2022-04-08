@@ -34,7 +34,7 @@ ReactDOM.render(
 						<BrowserRouter>
 							<Routes>
 								<Route path = '/'         element = {<Navigate to = '/dashboard'/>}/>
-								<Route index path="/dashboard"  element = {<Dashboard/>} />
+								<Route path="/dashboard"  element = {<Dashboard/>} />
 								<Route path="/register"   element = {<Register/>} />
 								<Route path="/login"      element = {<Login />} />				
 							</Routes>
