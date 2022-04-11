@@ -17,6 +17,8 @@ import { GlobalLoadingContext } from "../../contexts/globalLoading";
 import { notification } from "../../functions/notification";
 import { GlobalUseEffectsContext } from "../../contexts/globalUseEffects";
 import { format, parseISO } from "date-fns";
+import { requiredFieldsIsNull } from "../../functions/requiredFieldsIsNull";
+import Swal from "sweetalert2";
 export default function NewTransaction({modal}) {
 	const {user} = useContext(AuthContext);
 	const selectOptions = [
@@ -41,6 +43,11 @@ export default function NewTransaction({modal}) {
 
 	function handleSubmit(event) {
 		setIsLoading(true);
+		if(requiredFieldsIsNull([name,type,amount,transactionDate])) {
+			Swal.fire("Campo Obrigatorio", "Por favor, preencha todos os campos", "error");
+			setIsLoading(false);
+			return;
+		}
 		event.preventDefault();
 		modal(false);
 		api.post('transactions', {

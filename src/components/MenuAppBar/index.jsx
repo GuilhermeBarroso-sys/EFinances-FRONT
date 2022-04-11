@@ -25,6 +25,13 @@ const settings = [
 	}
 ];
 
+const rolesMock = [
+	{
+		title:'Lixeira',
+		anchor: '/transactions/trash',
+	}
+];
+
 export default function MenuAppBar() {
 
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -75,7 +82,7 @@ export default function MenuAppBar() {
 						open={Boolean(anchorElNavBar)}
 						onClose={handleCloseNavBarMenu}
 					>
-						{settings.map(({title, anchor}, index) => (
+						{rolesMock.map(({title, anchor}, index) => (
 							<MenuItem key={index} onClick={handleCloseUserMenu}>
 								<Link style = {{textDecoration:'none', color: 'var(--text-title)', width:'100%'}} to = {anchor}> {title} </Link> 
 							</MenuItem>

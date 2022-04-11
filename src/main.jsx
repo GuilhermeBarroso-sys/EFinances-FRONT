@@ -20,6 +20,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import 'react-notifications-component/dist/theme.css';
 import { ReactNotifications } from 'react-notifications-component';
+import { TransactionTrash } from './pages/TransactionTrash';
 const localeMap = {
 	ptBr: brLocale
 };
@@ -36,6 +37,7 @@ ReactDOM.render(
 								<Route path="/dashboard"  element={<Dashboard/>} />
 								<Route path="/register" element={<Register/>} />
 								<Route path="/login" element={<Login />} />				
+								<Route path="/transactions/trash" element={<TransactionTrash/> } />
 							</Routes>
 						</BrowserRouter>
 					</AuthProvider>

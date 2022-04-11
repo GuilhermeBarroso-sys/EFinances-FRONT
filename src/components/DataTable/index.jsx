@@ -4,7 +4,7 @@ import noData from '../../assets/noData.svg';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-export default function DataTable({rows, columns, handleDelete, handleUpdate}) {
+export default function DataTable({rows, columns, handleDelete = null, handleUpdate}) {
 	const [selectedArray, setSelectedArray] = useState([]);
 
 	return (
@@ -13,7 +13,7 @@ export default function DataTable({rows, columns, handleDelete, handleUpdate}) {
 			? (	
 				<div style={{ width: '100%', height: '600px'} }>
 					<div className={styles.actions}>
-						{selectedArray.length > 0 && (
+						{(selectedArray.length > 0 && handleDelete) && (
 							<>
             
 								{/* <Button variant = "contained" color = "info">  <EditIcon /> </Button> */}
