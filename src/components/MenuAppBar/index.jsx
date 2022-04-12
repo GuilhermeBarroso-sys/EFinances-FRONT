@@ -15,10 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {AccountCircleTwoTone } from '@mui/icons-material';
 import styles from './styles.module.scss';
 const settings = [
-	{
-		title:'Dashboard',
-		anchor: '/dashboard',
-	},
+	
 	{
 		title:'Meu Perfil',
 		anchor: '/user',
@@ -27,9 +24,9 @@ const settings = [
 
 const rolesMock = [
 	{
-		title:'Lixeira',
-		anchor: '/transactions/trash',
-	}
+		title:'Dashboard',
+		anchor: '/dashboard',
+	},
 ];
 
 export default function MenuAppBar() {
