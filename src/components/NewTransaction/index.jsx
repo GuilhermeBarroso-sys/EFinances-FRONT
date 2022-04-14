@@ -53,14 +53,24 @@ export default function NewTransaction({modal}) {
 		api.post('transactions', {
 			name, value: parseFloat(amount), type , datetime: convertDateToString(transactionDate), account_id: user.Account[0].id
 		}).then(({data,status}) => {
-			if(status == 201) {
+			if(status == 201) {     
 				const newTransactionsData = transactionsData;
 				data.datetime = format(parseISO(data.datetime), 'dd/MM/yyyy HH:mm:ss');
+				const newTransactionIncome = newTransactionsData.income;
+				const newTransactionOutcome = newTransactionsData.outcome;
+				const total = newTransactionsData.total;
 				data.type = type == 'income' ? 'Entrada' : 'Saida';
-				data.type == 'Entrada'
-					?	newTransactionsData.income = newTransactionsData.income + data.value 
-					:	newTransactionsData.outcome = newTransactionsData.outcome + data.value; 
-				newTransactionsData.total = newTransactionsData.income - newTransactionsData.outcome;
+				if(data.type == 'Entrada') {
+					newTransactionsData.income = (newTransactionIncome + data.value);
+		
+					newTransactionsData.total =  (total + data.value);
+				} else {
+					newTransactionsData.outcome = (newTransactionOutcome + data.value);
+					newTransactionsData.total =  (total - data.value);
+
+				}
+
+
 				setTransactions([...transactions, data]);
 				setTransactionsData(newTransactionsData);
 				setIsLoading(false);
@@ -91,6 +101,8 @@ export default function NewTransaction({modal}) {
 						value={amount}
 						type="number"
 						onChange={(event) => {
+							// const money = event.target.value;
+							// console.log(money, typeof(money), parseFloat(money));
 							setAmount(event.target.value);
 						}}
 						startAdornment={<InputAdornment position="start">$</InputAdornment>}

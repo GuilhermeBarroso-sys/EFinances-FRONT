@@ -8,7 +8,6 @@ import {Trash} from '../../components/Trash';
 export function TransactionTrash() {
 	const {isAuthenticated} = useContext(AuthContext);
 	useEffect(() => {
-		console.log(`hello world`);
 	});
 	return (
 		<div className={styles.trashPage}>

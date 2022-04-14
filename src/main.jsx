@@ -14,13 +14,11 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { AuthProvider } from './contexts/authentication';
 import { GlobalLoadingProvider } from './contexts/globalLoading';
 import { GlobalUseEffectProvider } from './contexts/globalUseEffects';
-
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import 'react-notifications-component/dist/theme.css';
 import { ReactNotifications } from 'react-notifications-component';
-import { TransactionTrash } from './pages/TransactionTrash';
 const localeMap = {
 	ptBr: brLocale
 };

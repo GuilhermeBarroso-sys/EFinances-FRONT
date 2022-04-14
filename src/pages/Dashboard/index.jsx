@@ -9,7 +9,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {addButton} from './styles.module.scss';
 import ReactModal from '../../components/ReactModal';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import NewTransaction from "../../components/NewTransaction";
 import { AuthContext } from "../../contexts/authentication";
 import { GlobalLoadingContext } from "../../contexts/globalLoading";
@@ -22,13 +22,8 @@ export default function Dashboard() {
 	const {isAuthenticated} = useContext(AuthContext);
 	const {isLoading} = useContext(GlobalLoadingContext);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const {transactionsData} = useContext(GlobalUseEffectsContext);
-	const [transactionsDataIsLoading, setTransactionsDataIsLoading] = useState(true);
-	useEffect(() => {
-		if(transactionsData.length != 0) {
-			setTransactionsDataIsLoading(false);
-		}
-	}, [transactionsData]);
+	const {transactionsData, transactionsDataIsLoading} = useContext(GlobalUseEffectsContext);
+
 	return (
 		<>
 			{/** Modal content New Transaction */}
@@ -39,7 +34,7 @@ export default function Dashboard() {
 			<MenuAppBar />
 			<MarginTop margin={`7rem`}/>
       
-
+      
 			{/** Dashboard */}
 			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
 				<Box >
