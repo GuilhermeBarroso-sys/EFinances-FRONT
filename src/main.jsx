@@ -37,7 +37,7 @@ ReactDOM.render(
 								<Route path="/dashboard"  element={<Dashboard/>} />
 								<Route path="/register" element={<Register/>} />
 								<Route path="/login" element={<Login />} />				
-								<Route path="/transactions/trash" element={<TransactionTrash/> } />
+								{/* <Route path="/transactions/trash" element={<TransactionTrash/> } /> */}
 							</Routes>
 						</BrowserRouter>
 					</AuthProvider>
