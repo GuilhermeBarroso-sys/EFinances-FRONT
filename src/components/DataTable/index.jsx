@@ -4,7 +4,7 @@ import noData from '../../assets/noData.svg';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-export default function DataTable({rows, columns, handleDelete = null, handleUpdate}) {
+export default function DataTable({rows, columns, handleDelete = null, handleUpdate, sort}) {
 	const [selectedArray, setSelectedArray] = useState([]);
 
 	return (
@@ -27,6 +27,11 @@ export default function DataTable({rows, columns, handleDelete = null, handleUpd
 					<DataGrid
 						onSelectionModelChange={(selected) => {
 							setSelectedArray(selected);
+						}}
+						initialState={{
+							sorting: {
+								sortModel: sort,
+							},
 						}}
 						rowsPerPageOptions = {[5]}
 						rows={rows}

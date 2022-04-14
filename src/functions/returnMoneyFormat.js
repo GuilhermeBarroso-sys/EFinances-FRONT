@@ -1,3 +1,4 @@
 export function returnMoneyFormat( value, currency = 'R$') {
-	return `${currency} ${value}`;
+	const format = `${currency} ${value.toFixed(2)}`;
+	return currency == 'R$' ? format.replace('.', ',') : format;
 }

@@ -109,5 +109,5 @@ export function Transactions() {
   
 	return  transactionLoading ? 	<div className={styles.datatableLoading}><BulletList style={{
 		width: '80%',
-	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable  rows = {transactions} columns = {columns} handleDelete = {handleDelete}/>;
+	}} backgroundColor={'var(--green)'}  /> </div> : <DataTable sort={[{field: 'datetime', sort: 'desc'}]} rows = {transactions} columns = {columns} handleDelete = {handleDelete}/>;
 }
