@@ -1,6 +1,6 @@
 # Efinances-FRONT
 ## Sobre o projeto
-  Projeto open-source de controls de finanças, utilizando as seguintes técnologias:
+  Projeto open-source de controle de finanças, utilizando as seguintes técnologias:
   - React (Vite App)
   - Material UI
   - Axios
