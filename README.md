@@ -5,7 +5,6 @@
   - Material UI
   - Axios
   - Sass
-  - Heroku (deploy)
   - Eslint
 ## O projeto está disponivel no seguinte link:
   - https://efinances-front-66my7st3t-guilhermebarroso-sys.vercel.app/
