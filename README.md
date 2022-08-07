@@ -1,29 +1,25 @@
 # Efinances-FRONT
-## Sobre o projeto
-  Projeto open-source de controle de finanças, utilizando as seguintes técnologias:
+## About this project
+  This finances control project is an open source backend, I used these technologies:
   - React (Vite App)
   - Material UI
   - Axios
   - Sass
   - Eslint
-## O projeto está disponivel no seguinte link:
+## This project is in production at these link:
   - https://efinances-front-66my7st3t-guilhermebarroso-sys.vercel.app/
-## Como executar o projeto (opcional)
+## How to execute this project (optional)
 ### 1 - Backend
- No Arquivo ./src/services/api.js encontra-se o link de produção deste projeto.  Caso queira optar por executar localmente, o repositório do backend está aqui: https://github.com/GuilhermeBarroso-sys/EFinances-Back <br><br>
-**Obs: O Heroku (plataforma onde o backend está) Pode demorar até 15 segundos para sair da hibernação e responder uma solicitação.**
-### 3 - Baixar dependências e executar o projeto
-Nesse Projeto eu utilizei o yarn, então:
+ The path ./src/services/api.js has the production link of this project, if you want a execute the back-end locally, follow this link: https://github.com/GuilhermeBarroso-sys/EFinances-Back <br><br>
+**Note: Heroku has a 10 - 15 seconds of cold start**
+### 3 - Download dependencies and start the project
+The project use yarn, then:
 ```ts
-  yarn // Baixar dependências 
-  yarn dev // Executar o projeto
+  yarn // Download the dependencies
+  yarn dev 
 ```
-Pronto, o projeto está rodando! <br>
+Done, the project is running! <br>
 
-
-    
-Atenciosamente <br>
-Guilherme
     
 
 
