@@ -1,6 +1,6 @@
 # Efinances-FRONT
 ## About this project
-  This finances control project is an open source backend, I used these technologies:
+  This finances control project is an open source front-end, I used these technologies:
   - React (Vite App)
   - Material UI
   - Axios
