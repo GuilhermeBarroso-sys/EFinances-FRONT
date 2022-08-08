@@ -32,25 +32,25 @@ export default function Register() {
 		<div className={screenCenter}>
       
 			{redirect && <Navigate to = '/dashboard' />}
-			<h1 className={styles.title}>Registrar-se</h1>
+			<h1 className={styles.title}>Register</h1>
 			<img src = {undrawRegister} className = {styles.logo} />
 			<div className={styles.container}>
 				<div className = {styles.box}>
-					<div><TextField onChange = {(event) => setName(event.target.value)} className = {styles.input} label="Nome" variant="outlined" /></div>
+					<div><TextField onChange = {(event) => setName(event.target.value)} className = {styles.input} label="Name" variant="outlined" /></div>
 					<div><TextField type={`email`} onChange = {(event) => setEmail(event.target.value)}  className = {styles.input} label="Email" variant="outlined" /></div>
 					<div><TextField
 						type="password"
-						onChange = {(event) => setPassword(event.target.value)}  className = {styles.input} label="Senha" variant="outlined" /></div>
+						onChange = {(event) => setPassword(event.target.value)}  className = {styles.input} label="Password" variant="outlined" /></div>
 				</div>
 
 				{isLoading 
-					?<Button disabled  variant = "contained" >Enviar</Button>
-					:<Button onClick = {handleSignUp}variant = "contained" >Enviar</Button>
+					?<Button disabled  variant = "contained" >Sign up</Button>
+					:<Button onClick = {handleSignUp}variant = "contained" >Sign up</Button>
 				}
 				<br />
 				<br />
 
-				<Link to = "/login" className={styles.smallText}><small> Possui uma conta? Clique aqui para entrar</small> </Link>
+				<Link to = "/login" className={styles.smallText}><small> Have an account? Click here!</small> </Link>
 			</div> 
 		</div>
 	);

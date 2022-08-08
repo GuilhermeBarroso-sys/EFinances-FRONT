@@ -38,12 +38,12 @@ export default function Login() {
 					<div><TextField type={`email`} onChange = {(event) => setEmail(event.target.value)}  className = {styles.input} label="Email" variant="outlined" /></div>
 					<div><TextField
 						type="password"
-						onChange = {(event) => setPassword(event.target.value)}  className = {styles.input} label="Senha" variant="outlined" /></div>
+						onChange = {(event) => setPassword(event.target.value)}  className = {styles.input} label="Password" variant="outlined" /></div>
 				</div>
-				{isLoading ? <Button disabled  variant = "contained" >Enviar</Button> :<Button onClick = {() => {handleSignIn(email,password);}}variant = "contained" >Enviar</Button>}
+				{isLoading ? <Button disabled  variant = "contained" >Send</Button> :<Button onClick = {() => {handleSignIn(email,password);}}variant = "contained" >Send</Button>}
 				<br/>
 				<br/>
-				<Link to = "/register" className={styles.smallText}><small> Não tem uma conta? Clique aqui para registrar-se</small> </Link>
+				<Link to = "/register" className={styles.smallText}><small> Doesn't Have an account? Click Here</small> </Link>
 			</div> 
 		</div>
 	);

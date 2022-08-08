@@ -24,10 +24,10 @@ export default function NewTransaction({modal}) {
 	const selectOptions = [
 		{
 			value: 'income',
-			label: 'Entrada'
+			label: 'Income'
 		},  {
 			value: 'outcome',
-			label: 'Saida'
+			label: 'Outcome'
 		},
 	];
   
@@ -44,7 +44,7 @@ export default function NewTransaction({modal}) {
 	function handleSubmit(event) {
 		setIsLoading(true);
 		if(requiredFieldsIsNull([name,type,amount,transactionDate])) {
-			Swal.fire("Campo Obrigatorio", "Por favor, preencha todos os campos", "error");
+			Swal.fire("Required field!", "Please fill all fields, ", "error");
 			setIsLoading(false);
 			return;
 		}
@@ -55,12 +55,12 @@ export default function NewTransaction({modal}) {
 		}).then(({data,status}) => {
 			if(status == 201) {     
 				const newTransactionsData = transactionsData;
-				data.datetime = format(parseISO(data.datetime), 'dd/MM/yyyy HH:mm:ss');
+				data.datetime = format(parseISO(data.datetime), 'MM/dd/yyyy HH:mm:ss');
 				const newTransactionIncome = newTransactionsData.income;
 				const newTransactionOutcome = newTransactionsData.outcome;
 				const total = newTransactionsData.total;
-				data.type = type == 'income' ? 'Entrada' : 'Saida';
-				if(data.type == 'Entrada') {
+				data.type = type == 'income' ? 'Income' : 'Outcome';
+				if(data.type == 'Income') {
 					newTransactionsData.income = (newTransactionIncome + data.value);
 		
 					newTransactionsData.total =  (total + data.value);
@@ -74,28 +74,28 @@ export default function NewTransaction({modal}) {
 				setTransactions([...transactions, data]);
 				setTransactionsData(newTransactionsData);
 				setIsLoading(false);
-				notification('Sucesso', 'Transação criada com sucesso!', 'success');
+				notification('Success', 'Success!', 'success');
 				return;
 			}
 			setIsLoading(false);
-			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
+			notification('Error!', 'Something is wrong! Try again later', 'danger');
 		}).catch(() => {
 			setIsLoading(false);
-			notification('Erro!', 'Algo deu errado. Tente novamente mais tarde', 'danger');
+			notification('Error!', 'Something is wrong! Try again later', 'danger');
 		});
 	}
 
 	return (
 		<div className = {styles.modalStyle}> 
 			<form>
-				<h1>Adicionar transação</h1>
+				<h1>New Transaction</h1>
 				<MarginTop margin={'1.3rem'}  />
 				<MuiContainer >
-					<TextField onChange={(event) => {setName(event.target.value);}} label="Nome da transação"  fullWidth/>
+					<TextField onChange={(event) => {setName(event.target.value);}} label="Transaction Name"  fullWidth/>
 					<MarginTop margin={'2rem'}  />
-					<SelectOptions value = {type} setValue= {setType} options = {selectOptions} selectLabel = {"Tipo de transação"} helperText = {""} />
+					<SelectOptions value = {type} setValue= {setType} options = {selectOptions} selectLabel = {"Transaction Type"} helperText = {""} />
 					<MarginTop margin={'1.1rem'}  />
-					<InputLabel htmlFor="outlined-adornment-amount">Valor da transação</InputLabel>
+					<InputLabel htmlFor="outlined-adornment-amount">Transaction value</InputLabel>
 					<OutlinedInput
 						id="outlined-adornment-amount"
 						value={amount}
@@ -113,7 +113,7 @@ export default function NewTransaction({modal}) {
 		
 					<DateTimePicker
 						mask={maskMap['ptBr']}
-						label="Data da transação"
+						label="Transaction Date"
 						value={transactionDate}
 						onChange={(date) => {
 							setTransactionDate(date);
@@ -123,7 +123,7 @@ export default function NewTransaction({modal}) {
 					/>
 
 					<MarginTop margin={'2rem'}  />
-					<Button variant="contained" onClick = {handleSubmit} color="success">Enviar</Button>
+					<Button variant="contained" onClick = {handleSubmit} color="success">Send</Button>
 			
 				</MuiContainer>
 			</form>

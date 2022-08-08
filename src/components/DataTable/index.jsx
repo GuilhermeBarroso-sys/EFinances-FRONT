@@ -45,7 +45,7 @@ export default function DataTable({rows, columns, handleDelete = null, handleUpd
         
 				<div className = {styles.noDataContainer}>
 					<br/>
-					<h1> Sem Dados Por aqui!</h1>
+					<h1> No data!</h1>
 					<br/>
 					<br/>
 					<img src = {noData} />

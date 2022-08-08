@@ -16,10 +16,7 @@ import {AccountCircleTwoTone } from '@mui/icons-material';
 import styles from './styles.module.scss';
 const settings = [
 	
-	{
-		title:'Meu Perfil',
-		anchor: '/user',
-	}
+
 ];
 
 const rolesMock = [
@@ -114,7 +111,7 @@ export default function MenuAppBar() {
 								</MenuItem>
 							))}
 							<MenuItem  onClick={signOut}>
-								<Link style = {{textDecoration:'none', color: 'var(--text-title)', width:'100%'}} to = '/login'> Sair </Link> 
+								<Link style = {{textDecoration:'none', color: 'var(--text-title)', width:'100%'}} to = '/login'> Logout </Link> 
 							</MenuItem>
 						</Menu>
 					</Box>

@@ -38,8 +38,8 @@ export default function Dashboard() {
 			{/** Dashboard */}
 			<MuiContainer  maxWidth = 'lg' isFixed = {true} >
 				<Box >
-					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Entrada'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {returnMoneyFormat(transactionsData.income)} />}
-					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Saida'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {returnMoneyFormat(transactionsData.outcome)}/>}
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Income'} icon = {<ArrowUp style = {{color: 'var(--green)'}}/>} body = {returnMoneyFormat(transactionsData.income)} />}
+					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Outcome'} icon = {<ArrowDown style = {{color: 'var(--red)'}}/>} body = {returnMoneyFormat(transactionsData.outcome)}/>}
 					{transactionsDataIsLoading ? <List backgroundColor={'var(--green)'}/> : <InfoBox title = {'Total'} icon = {<MonetizationOnIcon style = {{color: 'var(--shape)'}}/>} body = {returnMoneyFormat(transactionsData.total)} titleColor = {'white'} bodyColor = {'var(--shape)'}  style = {{backgroundColor: transactionsData.total < 0 ? '#FF5959' :'var(--green)'}}/>}
 				</Box>
 				<MarginTop margin={`3rem`}/>

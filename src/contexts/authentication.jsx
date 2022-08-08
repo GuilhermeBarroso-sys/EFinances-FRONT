@@ -17,7 +17,7 @@ export function AuthProvider(props) {
 			return true;
 		} catch({response}) {
 			Swal.fire({
-				title: 'Erro',
+				title: 'Error',
 				text: `${response.data}`,
 				icon: "error",
 			});
@@ -33,7 +33,7 @@ export function AuthProvider(props) {
 			return true;
 		} catch({response}) {
 			Swal.fire({
-				title: 'Erro',
+				title: 'Error',
 				text: `${response.data}`,
 				icon: "error",
 			});

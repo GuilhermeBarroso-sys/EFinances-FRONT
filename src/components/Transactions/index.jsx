@@ -17,14 +17,14 @@ export function Transactions() {
 	async function handleDelete(transactionSelect, setTransactionSelect) {
 		const transactionLength = transactionSelect.length;
 		const {isConfirmed} = await Swal.fire({
-			title: 'Você tem certeza?',
-			text:  transactionLength > 1 ? `${transactionLength} transações serão apagadas!` : 'Essa transação sera apagada!',
+			title: 'Are you sure?',
+			text:  transactionLength > 1 ? `${transactionLength} transactions will to be lost!` : 'this transaction will be lost!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Deletar',
-			cancelButtonText: 'Cancelar'
+			confirmButtonText: 'Delete',
+			cancelButtonText: 'Cancel'
 		});
 		if(isConfirmed) {
 			const ids = transactionSelect.toString();
@@ -36,7 +36,7 @@ export function Transactions() {
 					if(!(transactionSelect.includes(transaction.id))) {
 						return transaction;
 					} else {
-						transaction.type == 'Saida' 
+						transaction.type == 'Outcome' 
 							? newTransactionsData.outcome = newTransactionsData.outcome - transaction.value
 							: newTransactionsData.income = newTransactionsData.income - transaction.value;
   
@@ -47,13 +47,13 @@ export function Transactions() {
 				setTransactionsData(newTransactionsData);
 				setTransactions(data.filter(data => data != undefined));
 				transactionLength > 1 
-					? notification('Sucesso', `${transactionLength} Transações deletada com sucesso!`, 'success') 
-					: notification('Sucesso', ` Transação deletada com sucesso!`, 'success'); 
+					? notification('Success', `${transactionLength} Transactions deleted with success!`, 'success') 
+					: notification('Success', ` Transaction deleted with success!`, 'success'); 
 				setTransactionSelect([]);
 
         
 			} catch( err) {
-				Swal.fire('Erro', 'Algo deu errado', 'error');
+				Swal.fire('Error', 'Something is wrong', 'error');
 			}
 		} 
 
@@ -67,8 +67,8 @@ export function Transactions() {
 					total: data.total
 				});
 				setTransactions(data.transactions.map(({id,name,value,type,datetime}) => {
-					datetime = format(parseISO(datetime), 'dd/MM/yyyy HH:mm:ss');
-					type = type == 'income' ? 'Entrada' : 'Saida';
+					datetime = format(parseISO(datetime), 'MM/dd/yyyy HH:mm:ss');
+					type = type == 'income' ? 'Income' : 'Outcome';
 					return {id, name, value, type, datetime};
 				}));
 				setTransactionLoading(false);
@@ -85,10 +85,10 @@ export function Transactions() {
 	// 	{id: 6, name: 'Notebook', value: '4000', category: 'Equipamento', data: '01/05/2022'},
 	// ];
 	const columns = [
-		{ id: 2, field: 'name', headerName: 'Nome', width: 250},
-		{ id: 1, field: 'value', headerName: 'Valor', width: 250},
-		{ id: 3, field: 'type', headerName: 'Tipo da transação', width: 450 },
-		{ id: 4, field: 'datetime', headerName: 'Data da transação', width: 350 },
+		{ id: 2, field: 'name', headerName: 'Name', width: 400},
+		{ id: 1, field: 'value', headerName: 'Value', width: 150},
+		{ id: 3, field: 'type', headerName: 'Transaction Type', width: 170 },
+		{ id: 4, field: 'datetime', headerName: 'Transaction Date (mm/dd/yyyy)', width: 350 },
 		// {
 		//   field: 'age',
 		//   headerName: 'Age',

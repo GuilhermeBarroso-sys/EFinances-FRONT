@@ -23,25 +23,24 @@ const localeMap = {
 	ptBr: brLocale
 };
 ReactDOM.render(
-	<React.StrictMode>
+
+	<BrowserRouter>
 		<LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap['ptBr']}>
 			<GlobalLoadingProvider>
 				<GlobalUseEffectProvider>
 					<AuthProvider>
 						<ReactNotifications />
-						<BrowserRouter>
-							<Routes>
-								<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
-								<Route path="/dashboard"  element={<Dashboard/>} />
-								<Route path="/register" element={<Register/>} />
-								<Route path="/login" element={<Login />} />				
-								{/* <Route path="/transactions/trash" element={<TransactionTrash/> } /> */}
-							</Routes>
-						</BrowserRouter>
+						<Routes>
+							<Route path = '/' element = {<Navigate to = '/dashboard'/>}/>
+							<Route path="/dashboard"  element={<Dashboard/>} />
+							<Route path="/register" element={<Register/>} />
+							<Route path="/login" element={<Login />} />				
+							{/* <Route path="/transactions/trash" element={<TransactionTrash/> } /> */}
+						</Routes>
 					</AuthProvider>
 				</GlobalUseEffectProvider>
 			</GlobalLoadingProvider>
 		</LocalizationProvider>
-	</React.StrictMode>,
+	</BrowserRouter>,
 	document.getElementById('root')
 );

@@ -15,7 +15,7 @@ export function Trash() {
 		}
 	}, [transactionLoading]);
 	const columns = [
-		{ id: 2, field: 'name', headerName: 'Nome', width: 250},
+		{ id: 2, field: 'name', headerName: 'Name', width: 250},
 		{ id: 1, field: 'value', headerName: 'Valor', width: 250},
 		{ id: 3, field: 'type', headerName: 'Tipo da transação', width: 450 },
 		{ id: 4, field: 'datetime', headerName: 'Data da transação', width: 350 },
