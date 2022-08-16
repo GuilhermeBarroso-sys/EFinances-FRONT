@@ -31,7 +31,7 @@ export default function Login() {
 	return (
 		<div className={screenCenter}>
 			{redirect && <Navigate to = '/dashboard' />}
-			<h1 className={styles.title}>Entrar</h1>
+			<h1 className={styles.title}>Sign In</h1>
 			<img src = {undrawLogin} className = {styles.logo} />
 			<div className={styles.container}>
 				<div className = {styles.box}>
